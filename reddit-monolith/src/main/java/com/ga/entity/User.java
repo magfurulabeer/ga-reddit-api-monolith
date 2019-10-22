@@ -73,5 +73,11 @@ public class User {
 		this.username = username;
 	}
 
-	
+	public UserProfile getUserProfile() {
+		return userProfile;
+	}
+
+	public void setUserProfile(UserProfile userProfile) {
+		this.userProfile = userProfile;
+	}
 }
