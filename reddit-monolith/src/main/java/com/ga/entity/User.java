@@ -1,10 +1,13 @@
 package com.ga.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -23,18 +26,20 @@ public class User {
 	
 	@Column(unique = true, nullable=false)
 	private String username;
-	//FK userProfile
-
-public User(Long userId,String email,String password, String username) {
-	this.userId=userId;
-	this.email=email;
-	this.password=password;
-	this.username=username;
-}
 	
-	private User() {
-		
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "user_profile_id")
+	private UserProfile userProfile;
+
+	public User(Long userId,String email,String password, String username) {
+		this.userId=userId;
+		this.email=email;
+		this.password=password;
+		this.username=username;
 	}
+		
+	@SuppressWarnings("unused")
+	private User() {}
 	
 	public Long getUserId() {
 		return userId;
