@@ -28,26 +28,7 @@ public class UserDaoImpl implements UserDao{
 	}
 
 	public User login(User user) {
-		Session session = sessionFactory.getCurrentSession();
-		User foundUser;
-		try {
-			session.beginTransaction();
-			foundUser = (User) session.createQuery("FROM User u WHERE u.username =  '" + user.getUsername() + "'").getSingleResult();
-
-//			String query = "from User u where u.username='" + user.getUsername() + "'";
-//			System.out.println(query);
-//			foundUser = (User) session.createQuery(query).getSingleResult();
-		}
-		catch (NoResultException e) {
-			//e.printStackTrace();
-			System.out.println("<><><><><><<>>");
-			return null;
-			
-		}
-		finally {
-			session.close();
-		}
-		return  foundUser;
+		return getUserByUsername(user.getUsername());
 	}
 	
 	public User getUserById(Long id) {
@@ -97,5 +78,23 @@ public class UserDaoImpl implements UserDao{
 		}
 		
 		return foundUser;		
+	}
+	
+	@Override
+	public User getUserByUsername(String username) {
+		User user = null;
+		
+		Session session = sessionFactory.getCurrentSession();
+		
+		try {
+			session.beginTransaction();
+			
+			user = (User)session.createQuery("FROM User u WHERE u.username = '" + 
+				username + "'").uniqueResult();
+		} finally {
+			session.close();
+		}
+		
+		return user;
 	}
 }
