@@ -63,4 +63,39 @@ public class UserDaoImpl implements UserDao{
 		return foundUser;
 		
 	}
+
+	// TODO: Does this have business that should be in the User Service
+	public User updateUser(User user, Long id) {
+		User foundUser;
+		Session session = sessionFactory.getCurrentSession();
+		try {
+			session.beginTransaction();
+			foundUser = session.get(User.class, id);
+			
+			String username = user.getUsername();
+			String password = user.getPassword();
+			String email = user.getEmail();
+			
+			if(password != null) {
+				foundUser.setPassword(password);
+			}
+			
+			if(username != null) {
+				foundUser.setUsername(username);
+			}
+			
+			if(email != null) {
+				foundUser.setEmail(email);
+			}
+			
+			session.update(foundUser);
+			session.getTransaction().commit();
+
+		}
+		finally {
+			session.close();
+		}
+		
+		return foundUser;		
+	}
 }
