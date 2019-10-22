@@ -38,33 +38,27 @@ public class UserServiceImpl implements UserService{
 	
 	@Override
 	public String signup(User user) {
+		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+		
     	if(userDao.signup(user).getUserId() != null) {
         		UserDetails userDetails = loadUserByUsername(user.getUsername());
-        		
-		return jwtUtil.generateToken(userDetails);
+        		return jwtUtil.generateToken(userDetails);
     	}
         	
 		return null;
 	}
 	
 	public String login(User user) {
-		if(userDao.login(user) != null) {
-    		UserDetails userDetails = loadUserByUsername(user.getUsername());
-	    		
-    		return jwtUtil.generateToken(userDetails);
+		User foundUser = userDao.login(user);
+		if (foundUser != null && 
+			foundUser.getUserId() != null && 
+			bCryptPasswordEncoder.matches(user.getPassword(), foundUser.getPassword())) {
+			
+		    UserDetails userDetails = loadUserByUsername(foundUser.getUsername());
+		    return jwtUtil.generateToken(userDetails);
 		}
-
+        	
 		return null;
-
-//		User foundUser = userDao.login(user);
-////		if (foundUser==null) {
-////			//throw exeception
-////			return null;
-////		}
-//		if (!user.getPassword().equals(foundUser.getPassword())){
-//			//throw exeception
-//			return null;
-//		}
 	}
 	
 
