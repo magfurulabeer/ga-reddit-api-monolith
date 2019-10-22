@@ -32,7 +32,7 @@ public class UserDaoImpl implements UserDao{
 		User foundUser;
 		try {
 			session.beginTransaction();
-			foundUser = (User) session.createQuery("FROM User u WHERE u.username =  '" + user.getUsername()+ "'").getSingleResult();
+			foundUser = (User) session.createQuery("FROM User u WHERE u.username =  '" + user.getUsername() + "'").getSingleResult();
 
 //			String query = "from User u where u.username='" + user.getUsername() + "'";
 //			System.out.println(query);
@@ -49,5 +49,18 @@ public class UserDaoImpl implements UserDao{
 		}
 		return  foundUser;
 	}
-
+	
+	public User getUserById(Long id) {
+		Session session=sessionFactory.getCurrentSession();
+		User foundUser;
+		try {
+			session.beginTransaction();
+			foundUser=session.get(User.class, id);
+		}
+		finally {
+			session.close();
+		}
+		return foundUser;
+		
+	}
 }

@@ -1,6 +1,8 @@
 package com.ga.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +28,10 @@ public class UserController {
 	@PostMapping("/login")
 	public User login(@RequestBody User user) {  //user will have the body
 		return userService.login(user);
+	}
+	@GetMapping("/{id}")
+	public User getUserById(@PathVariable Long id) {
+		return userService.getUserById(id);
 	}
 	
 }

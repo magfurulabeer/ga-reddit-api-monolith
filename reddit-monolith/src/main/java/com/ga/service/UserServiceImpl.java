@@ -32,4 +32,10 @@ public class UserServiceImpl implements UserService{
 		}
 		return foundUser;
 	}
+	
+
+	public User getUserById(Long id) {
+		return userDao.getUserById(id);
+	
+	}
 }
