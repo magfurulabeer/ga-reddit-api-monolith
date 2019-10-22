@@ -25,9 +25,8 @@ public class UserController {
 	}
 	
 	@PostMapping("/signup")
-	public User signup(@RequestBody User user) {  //user will have the body
-		//return "post/signup - Username is " + user.getUsername() + " and Password is " + user.getPassword();
-		return userService.signup(user);
+	public ResponseEntity<?> signup(@RequestBody User user) {
+    	return ResponseEntity.ok(new JwtResponse(userService.signup(user)));
 	}
 	
 	@PostMapping("/login")
