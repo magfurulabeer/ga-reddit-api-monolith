@@ -23,4 +23,9 @@ public class UserController {
 		//return "post/signup - Username is " + user.getUsername() + " and Password is " + user.getPassword();
 		return userService.signup(user);
 	}
+	@PostMapping("/login")
+	public User login(@RequestBody User user) {  //user will have the body
+		return userService.login(user);
+	}
+	
 }

@@ -1,5 +1,7 @@
 package com.ga.dao;
 
+import javax.persistence.NoResultException;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,29 @@ public class UserDaoImpl implements UserDao{
 			session.close();
 		}
 		return user;
+	}
+
+	public User login(User user) {
+		Session session = sessionFactory.getCurrentSession();
+		User foundUser;
+		try {
+			session.beginTransaction();
+			foundUser = (User) session.createQuery("FROM User u WHERE u.username =  '" + user.getUsername()+ "'").getSingleResult();
+
+//			String query = "from User u where u.username='" + user.getUsername() + "'";
+//			System.out.println(query);
+//			foundUser = (User) session.createQuery(query).getSingleResult();
+		}
+		catch (NoResultException e) {
+			//e.printStackTrace();
+			System.out.println("<><><><><><<>>");
+			return null;
+			
+		}
+		finally {
+			session.close();
+		}
+		return  foundUser;
 	}
 
 }

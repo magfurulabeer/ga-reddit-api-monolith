@@ -20,4 +20,16 @@ public class UserServiceImpl implements UserService{
 		return userDao.signup(user);
 	}
 	
+	public User login(User user) {
+		User foundUser = userDao.login(user);
+//		if (foundUser==null) {
+//			//throw exeception
+//			return null;
+//		}
+		if (!user.getPassword().equals(foundUser.getPassword())){
+			//throw exeception
+			return null;
+		}
+		return foundUser;
+	}
 }
