@@ -40,11 +40,9 @@ public class User {
 	@JoinColumn(name = "user_profile_id")
 	private UserProfile userProfile;
 	
-	
 	//Join user to post
-	@OneToMany(mappedBy="user",cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="user", cascade=CascadeType.ALL)
 	private List<Post> posts;
-	
 
 	public User(Long userId,String email,String password, String username) {
 		this.userId=userId;

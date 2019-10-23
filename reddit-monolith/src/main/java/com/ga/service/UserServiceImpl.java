@@ -22,6 +22,8 @@ public class UserServiceImpl implements UserService{
 	
 	JwtUtil jwtUtil;
 	
+	private String username;
+	
 	@Autowired
     @Qualifier("encoder")
     PasswordEncoder bCryptPasswordEncoder;
@@ -74,6 +76,7 @@ public class UserServiceImpl implements UserService{
 	@Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userDao.getUserByUsername(username);
+        this.setUsername(username);
 
         if(user==null)
             throw new UsernameNotFoundException("Unknown user: " +username);
@@ -89,4 +92,21 @@ public class UserServiceImpl implements UserService{
 
         return authorities;
     }
+
+	@Override
+	public String getUsername() {
+		System.out.println("GET USERNAME");
+		System.out.println(this.username);
+		return this.username;
+	}
+
+	@Override
+	public void setUsername(String username) {
+		this.username = username;
+		System.out.println("SET USERNAME");
+
+	
+		System.out.println(this.username);
+	}
+    
 }
