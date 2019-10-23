@@ -95,18 +95,12 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public String getUsername() {
-		System.out.println("GET USERNAME");
-		System.out.println(this.username);
 		return this.username;
 	}
 
 	@Override
 	public void setUsername(String username) {
 		this.username = username;
-		System.out.println("SET USERNAME");
-
-	
-		System.out.println(this.username);
 	}
     
 }
