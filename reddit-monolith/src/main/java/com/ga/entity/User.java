@@ -1,5 +1,7 @@
 package com.ga.entity;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -40,10 +42,9 @@ public class User {
 	
 	
 	//Join user to post
-	@JsonIgnore
-	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name = "post_id")
-	private Post post;
+	@OneToMany(mappedBy="user",cascade=CascadeType.ALL)
+	private List<Post> posts;
+	
 
 	public User(Long userId,String email,String password, String username) {
 		this.userId=userId;
