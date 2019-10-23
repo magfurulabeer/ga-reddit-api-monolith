@@ -7,8 +7,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="users")
@@ -21,15 +26,24 @@ public class User {
 	@Column(unique = true, nullable=false)
 	private String email;
 	
+	//@NotBlank(message ="Password cannot be blank")
 	@Column(nullable = false)
 	private String password;
 	
+	//@NotBlank(message="Username cannot be blank")
 	@Column(unique = true, nullable=false)
 	private String username;
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "user_profile_id")
 	private UserProfile userProfile;
+	
+	
+	//Join user to post
+	@JsonIgnore
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name = "post_id")
+	private Post post;
 
 	public User(Long userId,String email,String password, String username) {
 		this.userId=userId;

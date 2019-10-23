@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+//import javax.validation.constraints.Email;
 
 @Entity
 @Table
@@ -15,6 +16,7 @@ public class UserProfile {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long profileId;
 	
+	//@Email(message="Email invalid")
 	@Column
 	private String additionalEmail;
 	
