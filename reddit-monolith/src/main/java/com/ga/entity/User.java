@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name="users")
@@ -18,9 +19,11 @@ public class User {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long userId;
 	
+	@NotBlank(message = "Email is required")
 	@Column(unique = true, nullable=false)
 	private String email;
 	
+	@NotBlank(message = "Password cannot be blank")
 	@Column(nullable = false)
 	private String password;
 	

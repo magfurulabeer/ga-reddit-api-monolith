@@ -22,6 +22,8 @@ public class UserServiceImpl implements UserService{
 	
 	JwtUtil jwtUtil;
 	
+	private User user = null;
+	
 	@Autowired
     @Qualifier("encoder")
     PasswordEncoder bCryptPasswordEncoder;
@@ -89,4 +91,14 @@ public class UserServiceImpl implements UserService{
 
         return authorities;
     }
+    
+    @Override
+	public User getUser() {
+		return user;
+	}
+
+	@Override
+	public void setUser(User user) {
+		this.user = user;
+	}
 }
