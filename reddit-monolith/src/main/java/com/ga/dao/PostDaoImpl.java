@@ -12,59 +12,68 @@ import com.ga.entity.User;
 
 @Repository
 public class PostDaoImpl implements PostDao{  
-    
+
 	@Autowired
-	  SessionFactory sessionFactory;
-	
+	SessionFactory sessionFactory;
+
 	@Autowired
 	UserDao userDao;
-	
-	
+
+
 	@Override
 	public Post createPost(Post post, String username) {
-		
+
 
 		User user = userDao.getUserByUsername(username);
-		
+
 		System.out.println(user.toString());
+
+		Session session = sessionFactory.getCurrentSession();
+
+		try {
+			session.beginTransaction();
+
+			post.setUser(user);
+
+			session.save(post);
+
+			session.getTransaction().commit();
+		} finally {
+			session.close();
+		}
+
+		return post;
+	}
+	@Override
+	public Post deletePost(Long postId) {
+		Post post = null;
 		
 		Session session = sessionFactory.getCurrentSession();
 		
-    	try {
-    		session.beginTransaction();
-  
-    		post.setUser(user);
-    		
-    		session.save(post);
-    		
-    		session.getTransaction().commit();
-    	} finally {
-    		session.close();
-    	}
-    	
-    	return post;
-  }
-	 @Override
-	  public Post deletePost(Long postId) {
-	    Post post = null;
-	    try(Session session = sessionFactory.getCurrentSession();) {
-	      session.beginTransaction();
-	      post = session.get(Post.class, postId);
-	      session.delete(post);
-	      session.getTransaction().commit();
-	    }
-	    return post;
-	  }
-	 
-	 @SuppressWarnings("unchecked")
-	  @Override
-	  public List<Post> getAllPosts() {
-	   
-	    List<Post> postList = null;
-	    try(Session session = sessionFactory.getCurrentSession();) {
-	      session.beginTransaction();
-	      postList = session.createQuery("From Post").getResultList();
-	    }
-	    return postList;
-	  }
+		try {
+			session.beginTransaction();
+			
+			post = session.get(Post.class, postId);
+			
+			session.delete(post);
+			
+			session.getTransaction().commit();
+			
+		} finally {
+			session.close();
+		}
+		return post;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Post> getAllPosts() {
+
+		List<Post> postList = null;
+		try(Session session = sessionFactory.getCurrentSession();) {
+			session.beginTransaction();
+			postList = session.createQuery("From Post").getResultList();
+		}
+		return postList;
+	}
 }
