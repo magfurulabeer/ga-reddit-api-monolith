@@ -39,14 +39,14 @@ public class UserController {
         return ResponseEntity.ok(new JwtResponse(userService.login(user)));
     }
 	
-	@GetMapping("/{id}")
-	public User getUserById(@PathVariable Long id) {
-		return userService.getUserById(id);
+	@GetMapping
+	public User getUserById() {
+		return userService.getUser();
 	}
 	
-	@PutMapping("/{id}")
-	public User updateUser(@RequestBody User user, @PathVariable Long id) {
-		return userService.updateUser(user, id);
+	@PutMapping
+	public User updateUser(@RequestBody User user) {
+		return userService.updateUser(user);
 	}
 	
 	@GetMapping("/comment")

@@ -14,9 +14,9 @@ public interface UserService extends UserDetailsService {
 	
 	public String login(User user);
 	
-	public User getUserById (Long id);
+	public User getUser();
 	
-	public User updateUser(User user, Long id);
+	public User updateUser(User user);
 	
 	public User getCurrentUser();
 	

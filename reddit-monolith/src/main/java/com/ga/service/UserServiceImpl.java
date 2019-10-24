@@ -65,12 +65,12 @@ public class UserServiceImpl implements UserService{
 	}
 	
 
-	public User getUserById(Long id) {
-		return userDao.getUserById(id);
-	
+	public User getUser() {
+		return currentUser;
 	}
 
-	public User updateUser(User user, Long id) {
+	public User updateUser(User user) {
+		Long id = currentUser.getUserId();
 		return userDao.updateUser(user, id);
 	}
 	
@@ -88,9 +88,7 @@ public class UserServiceImpl implements UserService{
     
     private List<GrantedAuthority> getGrantedAuthorities(User user) {
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-
 //        authorities.add(new SimpleGrantedAuthority(user.getUserRole().getName()));
-
         return authorities;
     }
 

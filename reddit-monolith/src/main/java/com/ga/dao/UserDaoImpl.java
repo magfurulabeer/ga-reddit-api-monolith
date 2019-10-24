@@ -33,20 +33,6 @@ public class UserDaoImpl implements UserDao{
 	public User login(User user) {
 		return getUserByUsername(user.getUsername());
 	}
-	
-	public User getUserById(Long id) {
-		Session session=sessionFactory.getCurrentSession();
-		User foundUser;
-		try {
-			session.beginTransaction();
-			foundUser=session.get(User.class, id);
-		}
-		finally {
-			session.close();
-		}
-		return foundUser;
-		
-	}
 
 	// TODO: Does this have business that should be in the User Service
 	public User updateUser(User user, Long id) {
