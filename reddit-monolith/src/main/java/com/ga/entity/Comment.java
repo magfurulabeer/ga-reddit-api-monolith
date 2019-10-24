@@ -13,20 +13,21 @@ import javax.persistence.Table;
 @Entity
 @Table(name="comments")
 public class Comment {
-/*
- * comment_id
- * text
- * user_id
- * post_id
- */
-	
 	@Id
-	@Column
+	@Column(name="comment_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long commentId;
 	
 	@Column(nullable = false)
 	private String text;
+	
+	@ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+    @JoinColumn(name = "user_id")
+	private User user;
+	
+	@ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+    @JoinColumn(name = "post_id")
+	private Post post;
 
 	public Long getCommentId() {
 		return commentId;
@@ -43,9 +44,22 @@ public class Comment {
 	public void setText(String text) {
 		this.text = text;
 	}
-	
-	
-	
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Post getPost() {
+		return post;
+	}
+
+	public void setPost(Post post) {
+		this.post = post;
+	}
 	
 	
 }

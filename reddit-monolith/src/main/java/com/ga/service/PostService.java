@@ -7,6 +7,7 @@ import com.ga.entity.Post;
 
 public interface PostService {
 	public Post createPost(Post post);
+	public Post getPostById(Long postId);
 	public Post deletePost(Long postId);
 	public List<Post> getAllPosts();
 }

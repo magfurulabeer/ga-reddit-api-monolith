@@ -16,11 +16,14 @@ public class CommentDaoImpl implements CommentDao {
 	SessionFactory sessionFactory;
 	
 	@Override
-	public Comment createComment(Comment comment) {		
+	public Comment createComment(Comment comment, User user, Post post) {		
 		Session session = sessionFactory.getCurrentSession();
 		
     	try {
     		session.beginTransaction();
+    		
+    		comment.setUser(user);
+    		comment.setPost(post);
     		
     		session.save(comment);
     		

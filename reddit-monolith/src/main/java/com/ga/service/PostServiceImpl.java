@@ -19,18 +19,22 @@ public class PostServiceImpl implements PostService{
 
 	@Override
 	public Post createPost(Post post) {
-		System.out.println("CREATING POST IN POST SERVICE");
-		String username = userService.getUsername();
-		System.out.println(username);
-		return postDao.createPost(post, username);
+		User user = userService.getUser();
+		return postDao.createPost(post, user);
 	}
 
 	@Override
 	public Post deletePost(Long postId) {
 		return postDao.deletePost(postId);
 	}
+	
 	@Override
 	public List<Post> getAllPosts() {
 		return postDao.getAllPosts();
+	}
+
+	@Override
+	public Post getPostById(Long postId) {
+		return postDao.getPostById(postId);
 	}
 }

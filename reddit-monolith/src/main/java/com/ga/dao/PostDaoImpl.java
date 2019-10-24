@@ -21,13 +21,7 @@ public class PostDaoImpl implements PostDao{
 
 
 	@Override
-	public Post createPost(Post post, String username) {
-
-
-		User user = userDao.getUserByUsername(username);
-
-		System.out.println(user.toString());
-
+	public Post createPost(Post post, User user) {
 		Session session = sessionFactory.getCurrentSession();
 
 		try {
@@ -75,5 +69,23 @@ public class PostDaoImpl implements PostDao{
 			postList = session.createQuery("From Post").getResultList();
 		}
 		return postList;
+	}
+	
+	@Override
+	public Post getPostById(Long postId) {
+		Session session = sessionFactory.getCurrentSession();
+		
+		Post foundPost;
+		
+		try {
+			session.beginTransaction();
+			
+			foundPost = session.get(Post.class, postId);
+			
+		} finally {
+			session.close();
+		}
+		
+		return foundPost;
 	}
 }

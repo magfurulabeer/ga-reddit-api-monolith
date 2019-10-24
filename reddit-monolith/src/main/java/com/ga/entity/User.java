@@ -43,6 +43,9 @@ public class User {
 	//Join user to post
 	@OneToMany(mappedBy="user", cascade=CascadeType.ALL)
 	private List<Post> posts;
+	
+	@OneToMany(mappedBy="user", cascade=CascadeType.ALL)
+	private List<Comment> comments;
 
 	public User(Long userId,String email,String password, String username) {
 		this.userId=userId;

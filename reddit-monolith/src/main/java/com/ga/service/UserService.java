@@ -14,8 +14,8 @@ public interface UserService extends UserDetailsService {
 	
 	public User updateUser(User user, Long id);
 	
-	public String getUsername();
+	public User getUser();
 	
-	public void setUsername(String username);
+	public void setUser(User user);
 	
 }

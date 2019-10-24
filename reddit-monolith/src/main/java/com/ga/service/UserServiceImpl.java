@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService{
 	
 	JwtUtil jwtUtil;
 	
-	private String username;
+	private User user;
 	
 	@Autowired
     @Qualifier("encoder")
@@ -76,7 +76,7 @@ public class UserServiceImpl implements UserService{
 	@Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userDao.getUserByUsername(username);
-        this.setUsername(username);
+        this.setUser(user);
 
         if(user==null)
             throw new UsernameNotFoundException("Unknown user: " +username);
@@ -94,13 +94,13 @@ public class UserServiceImpl implements UserService{
     }
 
 	@Override
-	public String getUsername() {
-		return this.username;
+	public User getUser() {
+		return this.user;
 	}
 
 	@Override
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUser(User user) {
+		this.user = user;
 	}
     
 }
