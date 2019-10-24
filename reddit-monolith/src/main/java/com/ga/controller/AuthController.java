@@ -1,49 +1,39 @@
 package com.ga.controller;
 
-import java.util.List;
-
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ga.entity.Comment;
 import com.ga.entity.JwtResponse;
 import com.ga.entity.User;
 import com.ga.service.UserService;
 
 @RestController
-@RequestMapping("/user")
-public class UserController {
-	UserService userService;
+@RequestMapping("/")
+public class AuthController {
+UserService userService;
 	
 	@Autowired  //to make UserService available
 	public void setUserService(UserService userService) {
 		this.userService=userService;
 	}
 	
-	@GetMapping
-	public User getUserById() {
-		return userService.getUser();
+	@GetMapping("/hello")
+	public String hello() {
+		return "Hello! Reddit Monolith server is running.";
 	}
 	
-	@PutMapping
-	public User updateUser(@RequestBody User user) {
-		return userService.updateUser(user);
+	@PostMapping("/signup")
+	public ResponseEntity<?> signup( @RequestBody User user) {  //@Valid
+    	return ResponseEntity.ok(new JwtResponse(userService.signup(user)));
 	}
 	
-	@GetMapping("/comment")
-	public List<Comment> getCommentsByUser(){
-		return userService.getCommentsByUser();
-	}
-	
-	
-	
+	@PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody User user) {
+        return ResponseEntity.ok(new JwtResponse(userService.login(user)));
+    }
 }
