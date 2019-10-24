@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService{
 	
 	JwtUtil jwtUtil;
 	
-	private User user;
+	private User currentUser;
 	
 	@Autowired
     @Qualifier("encoder")
@@ -77,7 +77,7 @@ public class UserServiceImpl implements UserService{
 	@Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userDao.getUserByUsername(username);
-        this.setUser(user);
+        this.setCurrentUser(user);
 
         if(user==null)
             throw new UsernameNotFoundException("Unknown user: " +username);
@@ -95,18 +95,18 @@ public class UserServiceImpl implements UserService{
     }
 
 	@Override
-	public User getUser() {
-		return this.user;
+	public User getCurrentUser() {
+		return this.currentUser;
 	}
 
 	@Override
-	public void setUser(User user) {
-		this.user = user;
+	public void setCurrentUser(User user) {
+		this.currentUser = user;
 	}
 
 	@Override
 	public List<Comment> getCommentsByUser() {
-		User currentUser =this.user;
+		User currentUser =this.currentUser;
 		return userDao.getCommentsByUser(currentUser);
 	}
     

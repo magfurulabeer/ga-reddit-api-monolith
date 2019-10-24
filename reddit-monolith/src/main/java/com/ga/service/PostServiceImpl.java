@@ -20,7 +20,7 @@ public class PostServiceImpl implements PostService{
 
 	@Override
 	public Post createPost(Post post) {
-		User user = userService.getUser();
+		User user = userService.getCurrentUser();
 		return postDao.createPost(post, user);
 	}
 

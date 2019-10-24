@@ -22,7 +22,7 @@ public class CommentServiceImpl implements CommentService {
 	
 	@Override
 	public Comment createComment(Comment comment, Long postId) {
-		User currentUser = userService.getUser();
+		User currentUser = userService.getCurrentUser();
 		Post currentPost = postService.getPostById(postId);
 		
 		return commentDao.createComment(comment, currentUser, currentPost);

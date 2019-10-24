@@ -18,9 +18,9 @@ public interface UserService extends UserDetailsService {
 	
 	public User updateUser(User user, Long id);
 	
-	public User getUser();
+	public User getCurrentUser();
 	
-	public void setUser(User user);
+	public void setCurrentUser(User user);
 	
 	public List<Comment> getCommentsByUser();
 	
