@@ -1,5 +1,7 @@
 package com.ga.dao;
 
+import java.util.List;
+
 import javax.persistence.NoResultException;
 
 import org.hibernate.Session;
@@ -7,6 +9,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.ga.entity.Comment;
 import com.ga.entity.User;
 
 @Repository
@@ -96,5 +99,18 @@ public class UserDaoImpl implements UserDao{
 		}
 		
 		return user;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Comment> getCommentsByUser(User user) {
+		Session session = sessionFactory.getCurrentSession();
+		try {
+			session.beginTransaction();
+			return session.createQuery("FROM Comment c WHERE c.user.userId= '"  + user.getUserId() + "'").getResultList();
+		}
+		finally {
+			session.close();
+		}
 	}
 }

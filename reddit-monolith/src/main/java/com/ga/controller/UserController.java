@@ -1,5 +1,7 @@
 package com.ga.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ga.entity.Comment;
 import com.ga.entity.JwtResponse;
 import com.ga.entity.User;
 import com.ga.service.UserService;
@@ -45,5 +48,12 @@ public class UserController {
 	public User updateUser(@RequestBody User user, @PathVariable Long id) {
 		return userService.updateUser(user, id);
 	}
+	
+	@GetMapping("/comment")
+	public List<Comment> getCommentsByUser(){
+		return userService.getCommentsByUser();
+	}
+	
+	
 	
 }

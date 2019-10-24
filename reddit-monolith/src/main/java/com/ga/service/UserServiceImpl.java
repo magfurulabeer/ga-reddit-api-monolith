@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.ga.config.JwtUtil;
 import com.ga.dao.UserDao;
+import com.ga.entity.Comment;
 import com.ga.entity.User;
 
 @Service
@@ -101,6 +102,12 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	@Override
+	public List<Comment> getCommentsByUser() {
+		User currentUser =this.user;
+		return userDao.getCommentsByUser(currentUser);
 	}
     
 }
