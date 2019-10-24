@@ -12,9 +12,9 @@ import javax.persistence.Table;
 @Table
 public class UserProfile {
 	@Id
-	@Column(name = "profile_id")
+	@Column
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long profileId;
+	private Long id;
 	
 	//@Email(message="Email invalid")
 	@Column
@@ -26,12 +26,12 @@ public class UserProfile {
 	@Column
 	private String address;
 
-	public Long getProfileId() {
-		return profileId;
+	public Long getId() {
+		return id;
 	}
 
-	public void setProfileId(Long profileId) {
-		this.profileId = profileId;
+	public void setId(Long profileId) {
+		this.id = profileId;
 	}
 
 	public String getAdditionalEmail() {

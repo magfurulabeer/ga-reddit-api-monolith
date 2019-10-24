@@ -17,9 +17,9 @@ import javax.persistence.Table;
 @Table(name="posts")
 public class Post {
 	@Id
-	@Column(name="post_id")
+	@Column
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long postId;
+	private Long id;
 	
 	@Column(nullable = false)
 	private String title;
@@ -35,12 +35,12 @@ public class Post {
 	@OneToMany(mappedBy="post", cascade=CascadeType.ALL)
 	private List<Comment> comments;
 	
-	public Long getPostId() {
-		return postId;
+	public Long getId() {
+		return id;
 	}
 
-	public void setPostId(Long postId) {
-		this.postId = postId;
+	public void setId(Long postId) {
+		this.id = postId;
 	}
 
 	public String getTitle() {

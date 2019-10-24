@@ -99,7 +99,7 @@ public class PostDaoImpl implements PostDao{
 		try {
 			session.beginTransaction();
 			
-			commentsList = (List<Comment>) session.createQuery("FROM Comment c WHERE c.post.postId = '" + 
+			commentsList = (List<Comment>) session.createQuery("FROM Comment c WHERE c.post.id = '" + 
 					postId + "'").getResultList();
 			
 		} finally {

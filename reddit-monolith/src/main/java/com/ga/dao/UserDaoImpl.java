@@ -93,7 +93,7 @@ public class UserDaoImpl implements UserDao{
 		Session session = sessionFactory.getCurrentSession();
 		try {
 			session.beginTransaction();
-			return session.createQuery("FROM Comment c WHERE c.user.userId= '"  + user.getUserId() + "'").getResultList();
+			return session.createQuery("FROM Comment c WHERE c.user.userId= '"  + user.getId() + "'").getResultList();
 		}
 		finally {
 			session.close();

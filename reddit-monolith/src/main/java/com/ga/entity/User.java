@@ -21,9 +21,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name="users")
 public class User {
 	@Id
-	@Column(name="user_id")
+	@Column
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long userId;
+	private Long id;
 	
 	@Column(unique = true, nullable=false)
 	private String email;
@@ -31,6 +31,9 @@ public class User {
 	//@NotBlank(message ="Password cannot be blank")
 	@Column(nullable = false)
 	private String password;
+	
+	@Column
+	private String title;
 	
 	//@NotBlank(message="Username cannot be blank")
 	@Column(unique = true, nullable=false)
@@ -48,7 +51,7 @@ public class User {
 	private List<Comment> comments;
 
 	public User(Long userId,String email,String password, String username) {
-		this.userId=userId;
+		this.id=userId;
 		this.email=email;
 		this.password=password;
 		this.username=username;
@@ -57,12 +60,12 @@ public class User {
 	@SuppressWarnings("unused")
 	private User() {}
 	
-	public Long getUserId() {
-		return userId;
+	public Long getId() {
+		return id;
 	}
 
-	public void setUserId(Long userId) {
-		this.userId = userId;
+	public void setId(Long userId) {
+		this.id = userId;
 	}
 
 	public String getEmail() {
@@ -96,4 +99,14 @@ public class User {
 	public void setUserProfile(UserProfile userProfile) {
 		this.userProfile = userProfile;
 	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	
+	
 }

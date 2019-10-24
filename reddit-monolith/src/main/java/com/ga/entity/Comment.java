@@ -14,9 +14,9 @@ import javax.persistence.Table;
 @Table(name="comments")
 public class Comment {
 	@Id
-	@Column(name="comment_id")
+	@Column
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long commentId;
+	private Long id;
 	
 	@Column(nullable = false)
 	private String text;
@@ -29,12 +29,12 @@ public class Comment {
     @JoinColumn(name = "post_id")
 	private Post post;
 
-	public Long getCommentId() {
-		return commentId;
+	public Long getId() {
+		return id;
 	}
 
-	public void setCommentId(Long commentId) {
-		this.commentId = commentId;
+	public void setId(Long commentId) {
+		this.id = commentId;
 	}
 
 	public String getText() {
