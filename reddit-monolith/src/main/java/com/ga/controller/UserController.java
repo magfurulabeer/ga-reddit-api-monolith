@@ -30,7 +30,7 @@ public class UserController {
 	}
 	
 	@GetMapping
-	public User getUserById() {
+	public User getUser() {
 		return userService.getUser();
 	}
 	

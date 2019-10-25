@@ -32,9 +32,6 @@ public class User {
 	@Column(nullable = false)
 	private String password;
 	
-	@Column
-	private String title;
-	
 	//@NotBlank(message="Username cannot be blank")
 	@Column(unique = true, nullable=false)
 	private String username;
@@ -57,8 +54,7 @@ public class User {
 		this.username=username;
 	}
 		
-	@SuppressWarnings("unused")
-	private User() {}
+	public User() {}
 	
 	public Long getId() {
 		return id;
@@ -98,15 +94,6 @@ public class User {
 
 	public void setUserProfile(UserProfile userProfile) {
 		this.userProfile = userProfile;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-	
+	}	
 	
 }

@@ -36,9 +36,6 @@ public class UserProfileControllerTest {
 	public void init() {
         mockMvc = MockMvcBuilders.standaloneSetup(userProfileController).build();
         userProfile = new UserProfile();
-//        userProfile.setId((long) 1);
-//        userProfile.setAdditionalEmail("batman@wayneindustries.com");
-//        userProfile.setMobile("1234567890");
         userProfile.setAddress("Gotham City");
     }
 
@@ -47,10 +44,7 @@ public class UserProfileControllerTest {
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
                 .get("/profile/{username}", "batman")
                 .accept(MediaType.APPLICATION_JSON);
-//                .contentType(MediaType.APPLICATION_JSON);
-//                .content("batman");
 		
-		// "{ \"address\": \"" + userProfile.getAddress() + "}"
 		when(userProfileService.getUserProfile(any())).thenReturn(userProfile);
 
 		mockMvc.perform(requestBuilder)
@@ -66,7 +60,6 @@ public class UserProfileControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{ \"address\": \"" + userProfile.getAddress() + "\"}");
 		
-		// "{ \"address\": \"" + userProfile.getAddress() + "}"
 		when(userProfileService.createUserProfile(any(), any())).thenReturn(userProfile);
 
 		mockMvc.perform(requestBuilder)
