@@ -15,7 +15,8 @@ import com.ga.service.UserService;
 @RestController
 @RequestMapping("/")
 public class AuthController {
-UserService userService;
+	
+	UserService userService;
 	
 	@Autowired  //to make UserService available
 	public void setUserService(UserService userService) {

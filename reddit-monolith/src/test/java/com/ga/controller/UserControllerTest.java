@@ -37,36 +37,6 @@ public class UserControllerTest {
 	}
 
 	@Test
-	public void signup_User_Success() throws Exception {
-		RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/user/signup")
-				.contentType(MediaType.APPLICATION_JSON).content(createUserInJson("joe", "abc"));
-
-		when(userService.signup(any())).thenReturn("123456");
-
-		MvcResult result = mockMvc.perform(requestBuilder).andExpect(status().isOk())
-				.andExpect(content().json("{\"token\":\"123456\"}")).andReturn();
-
-		System.out.println(result.getResponse().getContentAsString());
-	}
-
-	private static String createUserInJson(String username, String password) {
-		return "{ \"username\": \"" + username + "\", " + "\"password\":\"" + password + "\"}";
-	}
-
-	@Test
-	public void login_User_Success() throws Exception {
-		RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/user/login")
-				.contentType(MediaType.APPLICATION_JSON).content(createUserInJson("joe", "abc"));
-
-		when(userService.login(any())).thenReturn("123456");
-
-		MvcResult result = mockMvc.perform(requestBuilder).andExpect(status().isOk())
-				.andExpect(content().json("{\"token\":\"123456\"}")).andReturn();
-
-		System.out.println(result.getResponse().getContentAsString());
-	}
-
-	@Test
 	public void getUserById_User_Success() throws Exception {
 
 	}
