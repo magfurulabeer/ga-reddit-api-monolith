@@ -37,33 +37,33 @@ public class UserServiceTest {
 	
 	@Before
 	public void initializeUser() {
-		user.setUserId(1L);
+		user.setId(1L);
 		user.setUsername("John");
 		user.setEmail("abc@abc.com");
 		user.setPassword("abc");
 	}
 	
 	@Test
-	public void getUserById_UserId_Success() {
+	public void getUser_UserId_Success() {
+		// How to test this? This is basically a getter
+//		when(userDao.getUser(any())).thenReturn(user);
 		
-		when(userDao.getUserById(any())).thenReturn(user);
-		
-		User tempUser = userService.getUserById(user.getUserId());
+		User tempUser = userService.getUser();
 		
 		Assert.assertNotNull(tempUser);
-		Assert.assertEquals(tempUser.getUserId(), user.getUserId());
+		Assert.assertEquals(tempUser.getId(), user.getId());
 	}
 	
 	@Test
 	public void updateUser_User_Success() {
 		when(userDao.updateUser(any(), any())).thenReturn(user);
 		
-		User tempUser=userService.updateUser(user, user.getUserId());
+		User tempUser = userService.updateUser(user);
 		
 		Assert.assertNotNull(tempUser);
-		Assert.assertEquals(tempUser.getUserId(), user.getUserId());
-		
+		Assert.assertEquals(tempUser.getId(), user.getId());	
 	}
+	
 	@Test
 	public void signup_User_Success() {
 		

@@ -42,15 +42,15 @@ public class CommentServiceTest {
 	
 	@Before
 	public void initializeComment() {
-		comment.setCommentId(1L);
+		comment.setId(1L);
 		comment.setText("Comment Text");
 		
-		user.setUserId(1L);
+		user.setId(1L);
 		user.setUsername("John");
 		user.setEmail("abc@abc.com");
 		user.setPassword("abc");
 		
-		post.setPostId(1L);
+		post.setId(1L);
 		post.setTitle("New title");
 		post.setDescription("New Description");
 	}
@@ -61,18 +61,18 @@ public class CommentServiceTest {
 		when(postService.getPostById(any())).thenReturn(post);
 		when(commentDao.createComment(any(), any(), any())).thenReturn(comment);
 		
-		Comment tempComment = commentService.createComment(comment, post.getPostId());
+		Comment tempComment = commentService.createComment(comment, post.getId());
 		
 		Assert.assertNotNull(tempComment);
-		Assert.assertEquals(tempComment.getCommentId(), comment.getCommentId());
+		Assert.assertEquals(tempComment.getId(), comment.getId());
 	}
 	
 	@Test
 	public void deleteCommentById_Comment_Success() {
 		when(commentDao.deleteCommentById(any())).thenReturn(comment);
-		Comment tempComment= commentService.deleteCommentById(comment.getCommentId());
+		Comment tempComment= commentService.deleteCommentById(comment.getId());
 		Assert.assertNotNull(tempComment);
-		Assert.assertEquals(tempComment.getCommentId(), comment.getCommentId());
+		Assert.assertEquals(tempComment.getId(), comment.getId());
 		
 	}
 }

@@ -45,12 +45,12 @@ public class PostServiceTest {
 	
 	@Before
 	public void initializeUser() {
-		user.setUserId(1L);
+		user.setId(1L);
 		user.setUsername("John");
 		user.setEmail("abc@abc.com");
 		user.setPassword("abc");
 		
-		post.setPostId(1L);
+		post.setId(1L);
 		post.setTitle("New Title");
 		post.setDescription("This is a new description");
 		
@@ -74,7 +74,7 @@ public class PostServiceTest {
 	public void deletePost_Post_Success() {
 		when(postDao.deletePost(any())).thenReturn(post);
 		
-		Post tempPost = postService.deletePost(post.getPostId());
+		Post tempPost = postService.deletePost(post.getId());
 		
 		Assert.assertNotNull(tempPost);
 		Assert.assertEquals(tempPost.getTitle(), post.getTitle());
@@ -92,7 +92,7 @@ public class PostServiceTest {
 	@Test
 	public void getPostById_Post_success() {
 		when(postDao.getPostById(any())).thenReturn(post);
-		Post tempPost = postDao.getPostById(post.getPostId());
+		Post tempPost = postDao.getPostById(post.getId());
 		Assert.assertNotNull(tempPost);
 		Assert.assertEquals(tempPost, post);
 	}

@@ -55,7 +55,7 @@ public class UserDaoTest {
 	@Before
     public void init() {
         
-        user.setUserId(1L);
+        user.setId(1L);
         user.setUsername("batman");
         user.setPassword("robin");
         
