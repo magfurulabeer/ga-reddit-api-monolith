@@ -44,10 +44,10 @@ public class UserServiceTest {
 	}
 	
 	@Test
-	public void getUser_UserId_Success() {
+	public void getUser_User_Success() {
 		// How to test this? This is basically a getter
 //		when(userDao.getUser(any())).thenReturn(user);
-		
+		userService.setCurrentUser(user);
 		User tempUser = userService.getUser();
 		
 		Assert.assertNotNull(tempUser);
@@ -61,7 +61,9 @@ public class UserServiceTest {
 		User tempUser = userService.updateUser(user);
 		
 		Assert.assertNotNull(tempUser);
-		Assert.assertEquals(tempUser.getId(), user.getId());	
+		Assert.assertEquals(tempUser.getId(), user.getId());
+		System.out.println(user.getId());
+		System.out.println(tempUser.getId());
 	}
 	
 	@Test

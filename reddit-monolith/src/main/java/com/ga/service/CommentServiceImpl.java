@@ -29,8 +29,15 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
-	public Comment deleteCommentById(Long id) {
-		return commentDao.deleteCommentById(id);
+	public String deleteCommentById(Long id) {
+		try {
+			commentDao.deleteCommentById(id);
+			return "success";
+		} catch(Exception e) {
+			// Throw error
+			return "failure";
+		}
+		
 	}
 
 }

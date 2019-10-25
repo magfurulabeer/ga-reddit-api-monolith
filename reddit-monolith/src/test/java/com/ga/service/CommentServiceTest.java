@@ -70,9 +70,9 @@ public class CommentServiceTest {
 	@Test
 	public void deleteCommentById_Comment_Success() {
 		when(commentDao.deleteCommentById(any())).thenReturn(comment);
-		Comment tempComment= commentService.deleteCommentById(comment.getId());
+		String tempComment = commentService.deleteCommentById(comment.getId());
 		Assert.assertNotNull(tempComment);
-		Assert.assertEquals(tempComment.getId(), comment.getId());
+		Assert.assertEquals(tempComment, "success");
 		
 	}
 }
