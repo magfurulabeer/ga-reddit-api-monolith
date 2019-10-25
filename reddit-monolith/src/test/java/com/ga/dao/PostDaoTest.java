@@ -24,8 +24,7 @@ import com.ga.entity.Comment;
 import com.ga.entity.Post;
 import com.ga.entity.User;
 
-public class UserDaoTest {
-	
+public class PostDaoTest {
 	@Rule
     public MockitoRule rule = MockitoJUnit.rule();
 	
@@ -41,18 +40,24 @@ public class UserDaoTest {
     @Mock
     Query<User> query;
     
-    
     @Mock
     Query<Comment> q1;
+    
+    @Mock
+    Query<Post>q2;
+    
 	
 	@InjectMocks  //b/c call new on it
     private User user;
 	
 	@InjectMocks
-    private UserDaoImpl userDao;
+    private PostDaoImpl postDao;
 	
 	@InjectMocks
 	private Comment comment;
+	
+	@InjectMocks
+	private Post post;
 	
 	@Before
     public void init() {
@@ -63,39 +68,61 @@ public class UserDaoTest {
         
         comment.setText("My first comment");
         
+        post.setId(1L);
+        post.setTitle("first title");
         
         when(sessionFactory.getCurrentSession()).thenReturn(session);
         when(session.getTransaction()).thenReturn(transaction);
         when(session.createQuery(anyString())).thenReturn(query);
 }
 	@Test
-    public void signup_User_Success() {
-		User savedUser = userDao.signup(user);
+	public void createPost_Post_Success(){
 		
-		assertNotNull("Test returned null object, expected non-null", savedUser);
-        assertEquals(savedUser, user);
-    }
+		Post savedPost=postDao.createPost(post,user);
+		
+		assertNotNull("Test returned null object, expected non-null", savedPost);
+        assertEquals(savedPost, post);
+	}
+	
 	@Test
-	public void login_User_Success() {
+	public void deletePost_Post_Success(){
+		Post deletedPost=postDao.deletePost(post.getId());
 		
-		when(query.uniqueResult()).thenReturn(user);
+		assertNotNull("Test returned null object, expected non-null", post);
+        assertEquals(deletedPost, null);}
+	
+	@Test
+	public void getPostById_Post_Success() {
+		Post foundPost=postDao.getPostById(post.getId());
 		
-		User savedUser=userDao.login(user);
-		
-		assertNotNull("Test returned null object, expected non-null", user);
-        assertEquals(savedUser, user);
+		assertNotNull("Test returned null object, expected non-null", post);
+        assertEquals(foundPost, null);
 	}
 	@Test
-	public void getCommentsByUser_User_Success() {
+	public void getAllPosts_Post_Success() {
+		List<Post> posts = new ArrayList<Post>();
+		posts.add(post);
+		
+		when(session.createQuery(anyString())).thenReturn(q2);
+		when(q2.getResultList()).thenReturn(posts);
+		
+		List<Post> savedPost = postDao.getAllPosts();
+		assertNotNull("Test returned null object, expected non-null", post);
+		assertEquals(savedPost, posts);
+	}
+	@Test
+	public void getCommentsByPostId_Post_Success() {
 		List<Comment> comments = new ArrayList<Comment>();
 		comments.add(comment);
 		
 		when(session.createQuery(anyString())).thenReturn(q1);
 		when(q1.getResultList()).thenReturn(comments);
 		
-		List<Comment> savedComment=userDao.getCommentsByUser(user);
+		List<Comment> savedComment=postDao.getCommentsByPostId(post.getId());
 		assertNotNull("Test returned null object, expected non-null", comment);
         assertEquals(savedComment, comments);
 	}
+	
+	
 	
 }
