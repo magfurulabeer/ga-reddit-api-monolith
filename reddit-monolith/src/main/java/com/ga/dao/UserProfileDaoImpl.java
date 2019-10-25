@@ -35,7 +35,7 @@ public class UserProfileDaoImpl implements UserProfileDao {
 		} finally {
 			session.close();
 		}
-
+ 
 		return userProfile;
 	}
 
