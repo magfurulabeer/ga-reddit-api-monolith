@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import com.ga.config.JwtUtil;
 import com.ga.dao.PostDao;
 import com.ga.dao.UserDao;
+import com.ga.entity.Comment;
 import com.ga.entity.Post;
 import com.ga.entity.User;
 
@@ -89,14 +90,26 @@ public class PostServiceTest {
 		Assert.assertNotNull(tempPosts);
 		Assert.assertEquals(tempPosts, posts);
 	}
+	
 	@Test
 	public void getPostById_Post_success() {
 		when(postDao.getPostById(any())).thenReturn(post);
-		Post tempPost = postDao.getPostById(post.getId());
+		Post tempPost = postService.getPostById(post.getId());
 		Assert.assertNotNull(tempPost);
 		Assert.assertEquals(tempPost, post);
 	}
 	
+	@Test
+	public void getCommentsById_CommentList_success() {
+		List<Comment> list = new ArrayList<>();
+		
+		when (postDao.getCommentsByPostId(any())).thenReturn(list);
+
+		List<Comment> comments = postService.getCommentsByPostId(1L);
+		
+		Assert.assertNotNull(comments);
+		Assert.assertEquals(list, comments);
+	}
 	
 	
 	
