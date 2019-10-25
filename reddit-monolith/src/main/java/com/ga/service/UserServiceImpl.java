@@ -104,7 +104,7 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public List<Comment> getCommentsByUser() {
-		User currentUser =this.currentUser;
+		User currentUser = this.currentUser;
 		return userDao.getCommentsByUser(currentUser);
 	}
     

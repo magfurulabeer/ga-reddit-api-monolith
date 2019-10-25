@@ -11,10 +11,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.ga.config.JwtUtil;
 import com.ga.dao.UserDao;
+import com.ga.entity.Comment;
 import com.ga.entity.User;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UserServiceTest {
@@ -45,8 +49,6 @@ public class UserServiceTest {
 	
 	@Test
 	public void getUser_User_Success() {
-		// How to test this? This is basically a getter
-//		when(userDao.getUser(any())).thenReturn(user);
 		userService.setCurrentUser(user);
 		User tempUser = userService.getUser();
 		
@@ -58,12 +60,11 @@ public class UserServiceTest {
 	public void updateUser_User_Success() {
 		when(userDao.updateUser(any(), any())).thenReturn(user);
 		
-		User tempUser = userService.updateUser(user);
+		userService.setCurrentUser(user);
+		User updatedUser = userService.updateUser(user);
 		
-		Assert.assertNotNull(tempUser);
-		Assert.assertEquals(tempUser.getId(), user.getId());
-		System.out.println(user.getId());
-		System.out.println(tempUser.getId());
+		Assert.assertNotNull(updatedUser);
+		Assert.assertEquals(updatedUser.getId(), user.getId());
 	}
 	
 	@Test
@@ -73,27 +74,64 @@ public class UserServiceTest {
 		when(userDao.signup(any())).thenReturn(user);
 		when(jwtUtil.generateToken(any())).thenReturn("Dummy Value");
 		when(userDao.getUserByUsername(any())).thenReturn(user);
-		
 		String tempSignup=userService.signup(user);
 		
 		Assert.assertNotNull(tempSignup);
 		Assert.assertEquals(tempSignup, "Dummy Value");
-		
-		
 	}
+	
+	@Test
+	public void signup_User_Failure() {
+		user.setId(null);
+		when(bCryptPasswordEncoder.encode(any())).thenReturn(user.getPassword());
+		when(userDao.signup(any())).thenReturn(user);
+		when(jwtUtil.generateToken(any())).thenReturn("Dummy Value");
+		when(userDao.getUserByUsername(any())).thenReturn(user);
+		
+		String tempSignup = userService.signup(user);
+		
+		Assert.assertNull(tempSignup);	
+	}
+	
 	@Test
 	public void login_User_Success() {
 		when(bCryptPasswordEncoder.matches(any(),any())).thenReturn(true);
 		when (userDao.login(any())).thenReturn(user);
 		when (jwtUtil.generateToken(any())).thenReturn("Dummy Value");
 		when (userDao.getUserByUsername(any())).thenReturn(user);
+		when(userDao.getUserByUsername(any())).thenReturn(user);
 		
-		String tempSignup=userService.login(user);
+		String tempLogin = userService.login(user);
 		
-		Assert.assertNotNull(tempSignup);
-		Assert.assertEquals(tempSignup, "Dummy Value");
+		Assert.assertNotNull(tempLogin);
+		Assert.assertEquals(tempLogin, "Dummy Value");
+	}
+	
+	@Test
+	public void login_User_Failure() {
+		when(bCryptPasswordEncoder.matches(any(),any())).thenReturn(true);
+		when (userDao.login(any())).thenReturn(null);
+		when (jwtUtil.generateToken(any())).thenReturn("Dummy Value");
+		when (userDao.getUserByUsername(any())).thenReturn(user);
+		
+		String tempLogin = userService.login(user);
+		
+		Assert.assertNull(tempLogin);	
 	}
 
+	@Test
+	public void getCommentsByUser_CommentList_Success() {
+		List<Comment> list = new ArrayList<>();
+		
+		when (userDao.getCommentsByUser(any())).thenReturn(list);
+
+		
+		List<Comment> comments = userService.getCommentsByUser();
+		
+		Assert.assertNotNull(comments);
+		Assert.assertEquals(list, comments);
+	}
+	
 	
 }
 
