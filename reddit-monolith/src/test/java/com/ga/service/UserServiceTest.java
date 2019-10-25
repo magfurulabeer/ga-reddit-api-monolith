@@ -35,8 +35,6 @@ public class UserServiceTest {
 	JwtUtil jwtUtil;
 	
 	
-	
-	
 	@Before
 	public void initializeUser() {
 		user.setUserId(1L);
@@ -81,5 +79,19 @@ public class UserServiceTest {
 		
 		
 	}
+	@Test
+	public void login_User_Success() {
+		when(bCryptPasswordEncoder.matches(any(),any())).thenReturn(true);
+		when (userDao.login(any())).thenReturn(user);
+		when (jwtUtil.generateToken(any())).thenReturn("Dummy Value");
+		when (userDao.getUserByUsername(any())).thenReturn(user);
+		
+		String tempSignup=userService.login(user);
+		
+		Assert.assertNotNull(tempSignup);
+		Assert.assertEquals(tempSignup, "Dummy Value");
+	}
+
+	
 }
 
