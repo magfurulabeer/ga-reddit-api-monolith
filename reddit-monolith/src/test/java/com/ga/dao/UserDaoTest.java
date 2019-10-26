@@ -98,4 +98,13 @@ public class UserDaoTest {
         assertEquals(savedComment, comments);
 	}
 	
+	@Test
+	public void getUserByUsername_User_Success() {
+		when(query.uniqueResult()).thenReturn(user);
+		User savedUser=userDao.getUserByUsername(user.getUsername());
+		assertNotNull("Test returned null object, expected non-null", savedUser);
+        assertEquals(savedUser, user);
+		
+	}
+	
 }
