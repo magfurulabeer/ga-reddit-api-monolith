@@ -21,4 +21,4 @@ The major hurdles we encountered were configuring the security so it would only 
 https://drive.google.com/file/d/1_DPQLLwmWmwzuoKRKP7xNwYRb9hWcmLF/view?usp=sharing
 
 ### Installation
-The appication requires setting up and running PostgreSQL and Tomcat locally, specifying the database location in the application's configuration file, and modifying the front end to use the correct HTTP addresses.
+The application requires setting up and running PostgreSQL and Tomcat locally, specifying the database location in the application's configuration file, and modifying the front end to use the correct HTTP addresses.
