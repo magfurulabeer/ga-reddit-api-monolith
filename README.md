@@ -17,6 +17,8 @@ We created separate packages for the controller, service, DAO and enities. After
 
 The major hurdles we encountered were configuring the security so it would only allow the user to access data the user was authorizedd to see. Another hurdle was getting the endpoints of the application to match the front-end.  This required re-working the applications field names and endpoints.  We also found the testing to be challenging,
 
----------A link to your planning documentation for how you broke down this project with deliverables and timelines.-------
+### Timeline
+https://drive.google.com/file/d/1_DPQLLwmWmwzuoKRKP7xNwYRb9hWcmLF/view?usp=sharing
 
+### Installation
 The appication requires setting up and running PostgreSQL and Tomcat locally, specifying the database location in the application's configuration file, and modifying the front end to use the correct HTTP addresses.
