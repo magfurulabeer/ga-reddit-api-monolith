@@ -42,10 +42,10 @@ public class UserProfileControllerTest {
 	@Test
 	public void getUserProfile_UserProfile_Success() throws Exception {
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .get("/profile/{username}", "batman")
+                .get("/profile", "batman")
                 .accept(MediaType.APPLICATION_JSON);
 		
-		when(userProfileService.getUserProfile(any())).thenReturn(userProfile);
+		when(userProfileService.getUserProfile()).thenReturn(userProfile);
 
 		mockMvc.perform(requestBuilder)
 		   .andExpect(status().isOk())
@@ -55,12 +55,12 @@ public class UserProfileControllerTest {
 	@Test
 	public void createUserProfile_UserProfile_Success() throws Exception {
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .post("/profile/{username}", "batman")
+                .post("/profile", "batman")
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{ \"address\": \"" + userProfile.getAddress() + "\"}");
 		
-		when(userProfileService.createUserProfile(any(), any())).thenReturn(userProfile);
+		when(userProfileService.createUserProfile(any())).thenReturn(userProfile);
 
 		mockMvc.perform(requestBuilder)
 		   .andExpect(status().isOk())

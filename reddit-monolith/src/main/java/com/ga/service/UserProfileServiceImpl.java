@@ -11,14 +11,19 @@ public class UserProfileServiceImpl implements UserProfileService {
 	
 	@Autowired
 	UserProfileDao userProfileDao;
+	
+	@Autowired
+	UserService userService;
 
 	@Override
-	public UserProfile createUserProfile(String username, UserProfile newProfile) {
+	public UserProfile createUserProfile(UserProfile newProfile) {
+		String username = userService.getCurrentUser().getUsername();
 		return userProfileDao.createUserProfile(username, newProfile);
 	}
 
 	@Override
-	public UserProfile getUserProfile(String username) {
+	public UserProfile getUserProfile() {
+		String username = userService.getCurrentUser().getUsername();
 		return userProfileDao.getUserProfile(username);
 	}	
 
