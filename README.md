@@ -1,6 +1,6 @@
 # GA Reddit API Monolith
 
-This project is a back-end application using Spring for the object dependencies, Hibernate for the tables and queries, and PostgreSQL to store the appliation's data; The application connects a front-end web application to a back-end using REST api; and uses Tomcat to run the app locally.  We also implemented security using Mockito mocking.
+This project is a back-end application using Spring for the object dependencies, Hibernate for the tables and queries, and PostgreSQL to store the appliation's data; The application connects a front-end web application to a back-end using REST api; and uses Tomcat to run the app locally.  We also implemented testing using Mockito mocking.
 
 ### Pivotal Tracker
 
