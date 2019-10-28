@@ -71,6 +71,9 @@ public class UserServiceImpl implements UserService{
 
 	public User updateUser(User user) {
 		Long id = currentUser.getId();
+		if(user.getPassword() != null) {
+			user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+		}
 		return userDao.updateUser(user, id);
 	}
 	
